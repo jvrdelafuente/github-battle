@@ -1,7 +1,6 @@
 import React from 'react'
 import {FaUserFriends, FaFighterJet, FaTrophy, FaTimesCircle} from 'react-icons/fa'
 import PropTypes from 'prop-types'
-import Results from './Results'
 import {Link} from 'react-router-dom'
 
 function Intructions(){
@@ -29,23 +28,19 @@ function Intructions(){
 }
 
 class PlayerInput extends React.Component{
-
-    constructor(props){
-        super(props)
-
-        this.state = {
-            userName: ''
-        }
-
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+    static propTypes = {
+        onSubmit: PropTypes.func.isRequired,
+        label: PropTypes.string.isRequired
     }
-    handleSubmit(event){
+    state = {
+        userName: ''
+    }
+    handleSubmit = (event) => {
         event.preventDefault()
 
         this.props.onSubmit(this.state.userName)
     }
-    handleChange(event){
+    handleChange = (event) => {
         this.setState({
             userName: event.target.value
         })
@@ -74,11 +69,6 @@ class PlayerInput extends React.Component{
             </form>
         )
     }
-}
-
-PlayerInput.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    label: PropTypes.string.isRequired
 }
 
 function PlayerPreview ({ username, onReset, label }) {
@@ -113,24 +103,16 @@ PlayerPreview.propTypes = {
 }
 
 export default class Battle extends React.Component{
-
-    constructor(props){
-        super(props)
-
-        this.state = {
-            playerOne: null,
-            playerTwo: null
-        }
-
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleReset = this.handleReset.bind(this)
+    state = {
+        playerOne: null,
+        playerTwo: null
     }
-    handleSubmit(prop, player){
+    handleSubmit = (prop, player) => {
         this.setState({
             [prop]: player
         })
     }
-    handleReset(id) {
+    handleReset = (id) => {
         this.setState({
           [id]: null
         })
